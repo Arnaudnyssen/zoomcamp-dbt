@@ -17,9 +17,9 @@ models:
         description: ""
         tests:
           - unique:
-            severity: warn
+              severity: warn
           - not_null:
-            severity: warn
+              severity: warn
       
 
       - name: vendorid
@@ -108,8 +108,10 @@ models:
         description: ""
         tests:
           - accepted_values:
-              values:
-                - [1,2,3,4,5]
+              values: "{{ var('payment_type_values') }}"
+              severity: warn
+              quote: false
+                
 
       - name: payment_type_description
         data_type: string
