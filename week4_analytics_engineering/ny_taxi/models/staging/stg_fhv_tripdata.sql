@@ -6,8 +6,7 @@
 
 with tripdata as 
 (
-  select *,
-    row_number() over(partition by vendorid, lpep_pickup_datetime) as rn
+  select *
   from {{ source('staging','fhv_tripdata') }}
   where pickup_datetime between '2019-01-01' and '2019-12-31'
 )
@@ -25,8 +24,6 @@ select
     
 
 from tripdata
-where rn = 1
-
 
 -- dbt build --select <model_name> --vars '{'is_test_run': 'false'}'
 {% if var('is_test_run', default=true) %}
